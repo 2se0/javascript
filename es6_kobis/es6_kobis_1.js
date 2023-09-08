@@ -1,9 +1,12 @@
 /* 
 젤 마지막 ;붙이기, 노드에 확인하면 메모리힙에 저장됨 , 여러줄로 만드는 법은 스크립트 누르고 언어모드 json, 우클릭 도큐먼트(문서 서식), 다시 자바스크립트 모드로 변경
 응답 구조 홈페이지에 설명이 있음음
-*/
 
-const kobic = {
+es6 fetch 이용해서 줄이기 , retrun 타입은 프로미스 타입.. 
+
+*/
+function execKobis(){
+const kobis = {
   "boxOfficeResult": {
     "boxofficeType": "일별 박스오피스", //kobic.boxOfficeResult.boxofficeType
     "showRange": "20230906~20230906", //kobic.boxOfficeResult.showRange
@@ -238,14 +241,48 @@ function kb(dailyBoxOfficeList) {
 }
 ` */
 
-let a = kobic.boxOfficeResult //출력할때
-let b = kobic.boxOfficeResult.dailyBoxOfficeList
 
-const movieList =`${b.map(movie =>
-`${movie.rank},${movie.movieNm},${movie.audiAcc},${movie.salesAcc}`).join('\n')}`
+let a = kobis.boxOfficeResult //출력할때
+let b = kobis.boxOfficeResult.dailyBoxOfficeList
+const movieList =`
+<h1>KOBIS 박스오피스</h1>
+<ul>
+  <li>박스오피스 타입 - ${a.boxofficeType}</li>
+  <li>박스오피스 일자 - ${a.showRange}</li>
+</ul>
+<table border=1>
+  <tr>
+    <td>순위</td>
+    <td>제목</td>
+    <td>개봉일</td>
+    <td>누적관객수</td>
+    <td>누적매출액</td>
+  </tr>
+    ${b.map(movie => 
+    `<tr>
+      <td>${movie.rank}</td>
+      <td>${movie.movieNm}</td>
+      <td>${movie.openDt}</td>
+      <td>${movie.audiAcc}</td>
+      <td>${movie.salesAcc}</td>
+    </tr>
+    `).join('\n')}
+</table >
+`
+//document.getElementById('kobisContent') 구버전es5, 코틀린..
+//$("#kobisContent").append(movieList) 제이쿼리
+document.querySelector('#kobisContent').innerHTML = movieList;
 
+}//execKobis
+
+//DOM 객체 생성 후 execKobis 함수 호출/ 스크립트 헤드쪽 호출
+document.addEventListener("DOMContentLoaded" , execKobis);
+
+/* 
 console.log(`타입 : ${a.boxofficeType}`);
 console.log(`날짜 : ${a.showRange}`);
 console.log(movieList);
 
-/* 1~10등까지 순위 나타내기 */
+동적생성 해보라. 1~10등까지 순위 나타내기 
+나중에 생성할때 
+*/
