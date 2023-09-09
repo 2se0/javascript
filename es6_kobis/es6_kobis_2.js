@@ -1,7 +1,6 @@
 import { Url } from "./es6_kobis_api.js";
 
 function execKobis(date){
-
     const kobis = //페치 json으로 받아온 유알엘 함수는 여기 안에서만 사용가능
       fetch(`${Url}${date}`)// = (`${Url}`+date)
       .then((response) => response.json())//fetch실행결과
@@ -39,7 +38,8 @@ function execKobis(date){
 
 }//execKobis
   
-  //DOM 객체 생성 후 execKobis 함수 호출/ 스크립트 헤드쪽 호출
+/*   
+//DOM 객체 생성 후 execKobis 함수 호출/ 스크립트 헤드쪽 호출
   document.addEventListener("DOMContentLoaded" , () =>{
     execKobis('20230907')
     //검색버튼 실행  알려주고 작업실행할땐 이벤트핸들러
@@ -48,5 +48,17 @@ function execKobis(date){
       execKobis('date')
       //alert('date')
     })
+
+   */
+
+  document.querySelector('#search').addEventListener('click', e => {
+    let searchdate = document.querySelector('#searchData').value
+    execKobis(searchdate)
+  })
+
+  document.addEventListener("DOMContentLoaded" , () =>{
+    execKobis('20230907')
   });
+
+
   
