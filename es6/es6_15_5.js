@@ -31,3 +31,5 @@ console.log('---------------------->> myClass 배열 출력');
 for(const student of myClass){
   console.log(student);
 }
+
+
