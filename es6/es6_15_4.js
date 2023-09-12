@@ -38,3 +38,4 @@ alberto.greet();
 hong = alberto
 console.log(hong.name);
 console.log(hong.work);
+
