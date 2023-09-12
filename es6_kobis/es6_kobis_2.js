@@ -4,7 +4,15 @@ function execKobis(date){
     const kobis = //페치 json으로 받아온 유알엘 함수는 여기 안에서만 사용가능
       fetch(`${Url}${date}`)// = (`${Url}`+date)
       .then((response) => response.json())//fetch실행결과
-      .then((kobis)=>{
+      .then((kobis)=>{//function b(kobis)
+      //.catch(()=>{console.log('fetch 실패!!');})
+
+      //dom객체 생성 후 exeKobis 함수 호출
+      /* document.addEventListener("DOMContentLoaded",()=>{
+        execKobis('20230907')
+      }) */
+
+      
       let a = kobis.boxOfficeResult //출력할때
       let b = kobis.boxOfficeResult.dailyBoxOfficeList;
       const movieList =`
