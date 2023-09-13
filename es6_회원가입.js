@@ -50,7 +50,7 @@ function form_check(e){
     return false
   }
   //이메일
-  if(useremail2.value == '' || , self.value == 'self'){ // (이메일주소 없고, 직접입력)
+  if(useremail2.value == '' || self.value == 'self'){ // (이메일주소 없고, 직접입력)
     alert('이메일 주소를 입력해주세요')
     useremail2.focus();
     return false
@@ -62,7 +62,7 @@ function form_check(e){
 
 }
 
-function email_check()(
+function email_check(){
   let useremailsel = document.getElementById('useremailsel')
   let useremail2 = document.getElementById('useremail2')
 
@@ -70,7 +70,7 @@ function email_check()(
     
   }
 
-)
+}
 document.addEventListener('DOMContentLoaded', () => {
   // 회원가입 버튼 클릭 이벤트 호출
   /* btnJoin.addEventListener('click', () => {
