@@ -1,0 +1,17 @@
+fieldset{
+  width: 600px;
+  height: 600px;
+}
+fieldset legend{
+  font-size: larger; 
+  text-align: center; 
+  font-weight: 600;
+}
+
+fieldset p small{
+  color: blue;
+  font-style: italic;
+}
+fieldset p.last_buts{
+  text-align: center;
+}
