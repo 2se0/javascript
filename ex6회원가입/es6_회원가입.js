@@ -3,6 +3,7 @@ function form_check(e){
   let username = document.querySelector('#username');
   let useremail = document.querySelector('#useremail');
   let useremail2 = document.querySelector('#useremail2');
+  let address = document.querySelector('#addressP');
   /*  
   const userid = document.getElementById('userid').value;
   const userps = document.getElementById('userps').value;
@@ -49,6 +50,8 @@ function form_check(e){
     usercall.focus();
     return false
   }
+
+
   //이메일
   if(useremail2.value == '' || self.value == 'self'){ // (이메일주소 없고, 직접입력)
     alert('이메일 주소를 입력해주세요')
@@ -71,7 +74,18 @@ function email_check(){
   }
 
 }
-document.addEventListener('DOMContentLoaded', () => {
+  //주소 https://postcode.map.daum.net/guide
+  function searchAdrr(){
+    new daum.Postcode({
+      oncomplete: function(data) {
+        //alert(data.zonecode + data.address)
+        document.getElementById('addressP').value = data.zoneconde;
+        document.getElementById('address2_1').value = data.address
+      }
+    }).open()
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
   // 회원가입 버튼 클릭 이벤트 호출
   /* btnJoin.addEventListener('click', () => {
     form_check();
@@ -79,5 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnJoin.addEventListener('click', form_check);
   useremail.addEventListener('chage', email_check)
+  address_but.addEventListener('click', searchAdrr)
 })
 
