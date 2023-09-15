@@ -33,26 +33,125 @@ class Test { }
   } 
   console.log(a);
 
-  3)가비지 컬렉터(Gabage Collector)
-  메모리를 관리해주는 청소기, 모든 언어가 가지고 있지는 않음, 참조되지 않는 스코프를 메모리를 정리함
-  * C언어는 - 개발자가 메모리 선언, 할당, 데이터처리, 메모리 삭제(반환)까지 다 해야함
-  * JAVA(객체지향언어), C#, JS, GO - 메모리를 관리해주는 GC(Gabage Collector)를 가짐
-  
-  4)실행 컨텍스트(Execution Context)
-  - 실행 순서와 스코프를 기억하고 있음(call steck에 쌓임, 한번에 한가지 일만 처리 할수 있다.)
-  - 실행 컨텍스트는 스코프 정보를 가지고 있는 렉시컬 환경 오브젝트(Lexical Environment Object)를
-    생성하여 관리하며 렉시컬 환경 오브젝트는 각각의 스코프 체이닝으로 연결됨
-  - 코드 맨 안쪽의 블록이 맨 먼저 생성됨
+3)가비지 컬렉터(Gabage Collector)
+메모리를 관리해주는 청소기, 모든 언어가 가지고 있지는 않음, 참조되지 않는 스코프를 메모리를 정리함
+* C언어는 - 개발자가 메모리 선언, 할당, 데이터처리, 메모리 삭제(반환)까지 다 해야함
+* JAVA(객체지향언어), C#, JS, GO - 메모리를 관리해주는 GC(Gabage Collector)를 가짐
+
+4)실행 컨텍스트(Execution Context)
+- 실행 순서와 스코프를 기억하고 있음(call steck에 쌓임, 한번에 한가지 일만 처리 할수 있다.)
+- 실행 컨텍스트는 스코프 정보를 가지고 있는 렉시컬 환경 오브젝트(Lexical Environment Object)를
+  생성하여 관리하며 렉시컬 환경 오브젝트는 각각의 스코프 체이닝으로 연결됨
+- 코드 맨 안쪽의 블록이 맨 먼저 생성됨
 
 
 [스코프란?]
 : Scope란 식별자, 변수를 참조할 수 있는 유효한 범위를 의미하며, 블럭의 단위로 정의된다.
-  블럭 안에서 정의된 식별자는 블럭이 종료되면 gc의 대상이 된다. 스코프 외부에서 스코프 내부의 식별자는 
-  참조가 불가능 하지만 내부에서 외부 스코프의 식별자는 참조가 가능합니다. 참조가 가능한 이유는 
-  실행 컨텍스트에 있는 렉시컬 오브 오브젝트가 스코프의 단위로 정보를 기억하고 있으며 맨 안쪽에 생성되는 
-  스코프부터 체이닝을 연결되어 있기 때문이다.  이렇게 생상된 LEO를 통해 스코프의 참조가 가능해 진다.
-  그래서, 스코프를 사용할때 메모리 절약관 사용을 고려한다면 실별자 선언과 사용은 필요한 블럭에서 정의하고 
-  호출되도록 하는 것이 좋다고 생각합니다.
+블럭 안에서 정의된 식별자는 블럭이 종료되면 gc의 대상이 된다. 스코프 외부에서 스코프 내부의 식별자는 
+참조가 불가능 하지만 내부에서 외부 스코프의 식별자는 참조가 가능합니다. 참조가 가능한 이유는 
+실행 컨텍스트에 있는 렉시컬 오브 오브젝트가 스코프의 단위로 정보를 기억하고 있으며 맨 안쪽에 생성되는 
+스코프부터 체이닝을 연결되어 있기 때문이다.  이렇게 생상된 LEO를 통해 스코프의 참조가 가능해 진다.
+그래서, 스코프를 사용할때 메모리 절약관 사용을 고려한다면 실별자 선언과 사용은 필요한 블럭에서 정의하고 
+호출되도록 하는 것이 좋다고 생각합니다.
+
+5. 호이스팅(Hoisting)
+- 자바스크립트 엔진(인터프린터)이 실행하기 전에 변수, 함수, 클래스등을 최상단으로 끌어 올리는 작업
+- ES6 이전에는 변수, 클래스는 호이스팅 작업시 선언과 초기화가 함께 진행되었으나, ES6부터는 선언만 가능
+- ES6 기준으로 let, const 키워드가 등장함
+- var는 되도록 사용X, let, const를 사용하여 명확한 프로그래밍 가능
+
+6. var 특징
+- 다른 언어와 코딩 방식(변수 할당등)의 차이로 디버깅이 어려움
+- 코드의 가독성과 유지보수 측면에서 좋지 않음
+  a)변수 선언시 키워드가 없어도 사용 가능하므로, 선언인지 재할당인지 구분 어려움
+    name = '홍길동'; --> var name = '홍길동'
+  b)중복 선언이 가능함
+    var person = '홍길동' //변수,키워드가 없어도 출력이 됨, 추후 인터프린터가 person 앞에 var를 붙임
+    var person = '홍길순' //err 없음, 가장 가까운 키워드를 출력
+    console.log(person);  
+  c)변수, 클래스는 블럭 단위 스코프가 안됨
+    var fruit = 'apple' //전역
+    {
+      var fruit = 'orange' //로컬(?)
+      console.log(fruit); // orange
+    }// var는 블럭 scope 적용안됨
+    console.log(fruit); // orange
+  d)함수레벨 스코프는 지원됨
+  var test = 'test'
+  function varTest(){
+    var test = 'test2'
+    //console.log(test);
+  }
+  console.log(test); // test
+
+7. 프로토타입(Prototype)
+Prototype
+- an original or first model of something from which other forms are copied or developed
+- someone or something that has the typical qualities of a particular group, kind, etc.
+- a first or early example that is used as a model for what comes later
+
+- 자바스크립트에서 객체지향적으로 프로그래밍을 하기위해 프로토타입이 제공되며,
+  공통적인 특징, 기능, 상태 등을 저장하여 필요한 객체에게 상속을 통해 적용할 수 있다.
+- 최상위 프로토타입(클래스)은 Object로 생성되는 모든 객체는 상속을 받아 구현된다.
+  class person <extends(부모만듬) object 생략가능>{
+
+  } 
+자바스크립트의 최상위 클래스는 object이다. 
+let strArray = []; //let strArray = new Array(); 배열을 만드는 두가지 방법
+
+
+class Person = {
+  constructor(){
+    this.name = 'hong';
+    this.age = 20;
+  }
+}
+
+class parent{
+    constructor(){this.name='부모';}
+}
+class person extends parent{
+    constructor(){
+        super();
+        this.name = 'hong';
+        this.age = 20;
+        }
+    }
+hong = new person();
+console.log(hong.name) //hong
+
+class parent{
+    constructor(){this.name='부모';}
+}
+class person extends parent{
+    constructor(){
+        super();
+        //this.name = 'hong';
+        this.age = 20;
+        }
+    }
+hong = new person();
+console.log(hong.name)// 부모
+
+객체지향 형태로 바뀌고 있기 때문에 프로토타입이란 이름이 클래스로 되어 있을수 있다.
+
+let hong = new Person();
+* 앞에 new가 붙으면 메모리 힙에 저장
+
+8. 클로저(Closure)
+- 함수에서 사용되는 중첩 함수 정의로 생성되는 블럭스코프를 통해 내부의 함수 스코프에서 
+  외부의 함수 스코프에 접근 가능하도록 허용하는 것을 의미함
+    1. 데이터를 중첩된 내부환겨에서 사용하게 되면 외부에서 사용X(데이터 보존성이 높아짐)
+    2. outer함수 하나만 알면 내부 함수를 몰라도 된다.
+    3. (정보은닉)
+  function outer(){
+    const a = 1;
+    function inner(){
+      console.log(a);
+    }// 렉시컬 환경에.. 블럭으로 선언 후, 
+    inner(); //아웃터 내부의 데이터를 처리할때사용 /콜스택에 제일 마지막에 들어감
+  }전역 스코프
+  outer(); //콜스택에는 블럭안에 있는 아웃터 내용이 들어감.
 
 <과제>
 개념정리
@@ -108,7 +207,7 @@ class Test { }
 
 
 - 프로토타입 :
-  
+  비밀공간. 유전자
 }
 */
 
